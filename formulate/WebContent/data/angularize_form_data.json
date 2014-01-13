@@ -1,0 +1,28 @@
+{	"select_one" : {
+	    "type": "select",
+	    "options": [{
+	        "value": "Movies"
+	    }, {
+	        "value": "Music"
+	    }, {
+	    	"value": "Other"	    	
+	    }]
+	},
+	
+	"text_field": {
+	    "type": "text",
+	    "hidden": true,
+	    "visibility": {"select_one":"Other"}
+	},
+	
+	"select_two": {
+	    "type": "select",
+	    "hidden": true,
+	    "visibility": {"select_one":"Movies"},
+	    "options": [{
+	        "value": "Blade Runner"
+	    }, {
+	        "value": "Enemy Mine"
+	    }]
+	}
+}

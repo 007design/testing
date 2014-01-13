@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Angular Demo</title>
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container form-one">
+		<form action="submit_form" class="form-horizontal">
+			<div class="row">
+				<div class="form-field">
+					<div class="col-xs-2"><label>Select One</label></div>
+					<div class="col-xs-10"><select name="select_one"></select></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-field">
+					<div class="col-xs-2"><label>Text</label></div>
+					<div class="col-xs-10"><input type="text" name="text_field"/></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-field">
+					<div class="col-xs-2"><label>Select Two</label></div>
+					<div class="col-xs-10"><select name="select_two"></select></div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<script type="text/javascript" src="scripts/angularize_form.js"></script>
+	
+</body>
+</html>

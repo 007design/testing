@@ -1,0 +1,92 @@
+{
+	"submitText": "Submit",
+	"viewFields":[{
+        "id": 4,
+        "fieldType": {
+            "id": 2,
+            "name": "drop down"
+        },
+        "sequence": 4,
+        "editable": true,
+        "visibility": true,
+        "required": false,
+        "custom": true,
+        "regEx": ".+",
+        "label": "Category Level 1",
+        "description": "",
+        "visibilityConditions": [],
+        "triggers": [{
+            "id": 1,
+            "type": "valueset",
+            "target": 5,
+            "triggerValues": [{
+                "value": "Sci-fi",
+                "sequence": 1
+            }, {
+                "value": "Drama",
+                "sequence": 2
+            }, {
+                "value": "Comedy",
+                "sequence": 3
+            }],
+            "triggerConditions": [{
+                "target": 4,
+                "comparison": 1,
+                "value": "movies"
+            }]
+        }, {
+            "id": 2,
+            "type": "valueset",
+            "target": 5,
+            "triggerValues": [{
+                "value": "Electronic",
+                "sequence": 1
+            }, {
+                "value": "Bluegrass",
+                "sequence": 2
+            }, {
+                "value": "Rock",
+                "sequence": 3
+            }],
+            "triggerConditions": [{
+                "target": 4,
+                "comparison": 1,
+                "value": "music"
+            }]
+        }],
+        "options": [{
+            "value": "Movies",
+            "sequence": 1
+        }, {
+            "value": "Music",
+            "sequence": 2
+        }]
+    }, {
+        "id": 5,
+        "fieldType": {
+            "id": 2,
+            "name": "drop down"
+        },
+        "sequence": 5,
+        "editable": true,
+        "visibility": false,
+        "required": false,
+        "custom": true,
+        "regEx": ".+",
+        "label": "Category Level 2",
+        "description": "",
+        "visibilityConditions": [{
+            "target": 4,
+            "comparison": 1,
+            "value": "movies",
+            "join": 1
+        }, {
+            "target": 4,
+            "comparison": 1,
+            "value": "music",
+            "join": 1
+        }],
+        "triggers": [],
+        "options": []
+    }]
+}
