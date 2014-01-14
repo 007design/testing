@@ -1,11 +1,34 @@
-{	"select_one" : {
+{	"select_one": {
 	    "type": "select",
-	    "options": [{
+	    "options":	[{
 	        "value": "Movies"
 	    }, {
 	        "value": "Music"
 	    }, {
 	    	"value": "Other"	    	
+	    }],
+	    "triggers": [{
+	    	"target": "select_two",
+	    	"conditions": [{
+	    		"target": "select_one",
+	    		"value": "Movies"
+	    	}],
+	    	"options": [{
+    			"value": "Blade Runner"
+    		},{
+    			"value": "Silent Running"
+    		}]
+	    }, {
+	    	"target": "select_two",
+	    	"conditions": [{
+	    		"target": "select_one",
+	    		"value": "Music"
+	    	}],
+	    	"options": [{
+	    		"value": "Bluegrass"
+	    	},{
+	    		"value": "Electronic"
+	    	}]
 	    }]
 	},
 	
@@ -18,7 +41,7 @@
 	"select_two": {
 	    "type": "select",
 	    "hidden": true,
-	    "visibility": {"select_one":"Movies"},
+	    "visibility": {"select_one":"Movies|Music"},
 	    "options": [{
 	        "value": "Blade Runner"
 	    }, {
