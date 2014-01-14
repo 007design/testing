@@ -25,15 +25,16 @@ app.service('DataSvc', function($http){
 /**
  * Form Field Directive
  */
-app.directive('formField', function($compile, DataSvc){
+app.directive('formField', function(DataSvc){
 
 	/* Wrap the transcluded content in a div to show/hide it
 	 * Notice the field class which invokes the field directive
 	 * This allows us to compile the transcluded content into a child scope
 	 * At this level the transcluded content is on a sibling scope to the directive
-	 * so it has no access to the scope of this directive */
+	 * so it has no access to the scope of this directive although it
+	 * does have access to the parent scope which, in this case, is ConfigCtrl*/
 	var tmpl =	'	<div class="field" ng-hide="field.hidden" field="field">'
-		+		'		<div ng-transclude></div>' /* The content placed here is on a sibling scope to the directive */
+		+		'		<div ng-transclude></div>'	
 		+		'	</div>';
 	
 	return {
@@ -85,15 +86,16 @@ app.directive('formField', function($compile, DataSvc){
 			function checkTriggers(){
 				if (!$scope.field.triggers) return;
 				
+				/* Process each trigger */
 				angular.forEach($scope.field.triggers, function(val, index){
 					var fireTrigger = false;
 					/* Parse conditions */
 					angular.forEach(val.conditions, function(cond, indx){
-						if (cond.target === attrs.fieldName)
-							if (cond.value === $scope.field.value)
-								fireTrigger = true;
+						if (cond.target === attrs.fieldName && cond.value === $scope.field.value)
+							fireTrigger = true;
 					});
 					
+					/* One of the conditions was met, apply the trigger */
 					if (fireTrigger)
 						$scope.$emit('fireTriggers', val);
 				});
@@ -102,21 +104,29 @@ app.directive('formField', function($compile, DataSvc){
 	};
 });
 
-/* Scopes prototypically inherit from their parent so by wrapping the transcluded content in another directive
- * We include it in the parent scope.  Note, however, that the content is a sibling of this directive's scope */
+/* Scopes prototypically inherit from their parent 
+ * so by wrapping the transcluded content in another directive
+ * we include it in the parent scope. Note, however, that the 
+ * content is a sibling of this directive's scope */
 app.directive('field', function(){
 	return {
-		restrict: 'C',
-		scope: {},
-		transclude: true,
-		template: '<div ng-transclude></div>'
+		restrict:	'C',
+		scope:		{},
+		transclude:	true,
+		template:	'<div ng-transclude></div>',
+		link: function($scope, elem, attrs, ctrl){
+			/* The transcluded content is on a scope which is a sibling to this scope
+			 * so nothing in this controller will be bound to it.  But the sibling scope
+			 * is a child of the formField directive scope so it inherits all those properties
+			 */
+		}
 	};
 });
 
 /**
  * Form Config Controller
  */
-app.controller('FormConfigCtrl', function($scope, $compile, DataSvc){
+app.controller('FormConfigCtrl', function($scope, DataSvc){
 	$scope.dataSvc = DataSvc;
 			
 	/* On init, load the form data */
@@ -132,6 +142,9 @@ app.controller('FormConfigCtrl', function($scope, $compile, DataSvc){
 		$scope.$broadcast('updateVisibility', args);
 	});
 	
+	/* When the controller receives a fireTriggers event,
+	 * it broadcasts an updateValues event to the field controllers
+	 */
 	$scope.$on('fireTriggers', function(event, args){
 		$scope.$broadcast('updateValues', args);
 	});
