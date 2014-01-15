@@ -1,138 +1,75 @@
 <!doctype html>
 <html lang="en" ng-app="app">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulate Demonstration</title>
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-<style type="text/css">
-	.responsive-container { padding: 0 15px; }
-</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Angular Routing</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 </head>
 <!-- AppCtrl is at the top of the DOM -->
 <body ng-controller="AppCtrl">
 
-	<div class="responsive-container">
-		<div class="row">
-	
-			<!-- Begin Form -->
-			<div class="col-lg-2">
-				<form id="theForm" name="theForm" class="form-horizontal">
-					<!-- 
-						Iterate over the view fields
-						Bind a FieldCtrl to each iteration here
-						Also have an ng-show directive here bound to the iterations visibility property
-					 -->
-					<div class="form-group" 
-						 ng-repeat="field in view.viewFields | orderBy:'sequence'"
-					 	 ng-controller="FieldCtrl"
-					 	 ng-show="field.visibility">
-					 	 		 	 
-				 		<label class="control-label" for="inputElement-{{alias}}">{{field.label}}<span class="requiredStar" ng-show="field.required">*</span></label>		 		
-				 					 	
-						<div ng-switch="field.editable">
-						
-						 	<div class="display-value form-control" ng-switch-when="false" id="fieldInputArea-{{alias}}">
-						 		<input id="input-{{alias}}" type="text" ng-model="field.value" disabled="true"/>		 
-						 	</div>			
-							<div ng-switch-when="true" class="form-control" id="fieldInputArea-{{alias}}">
-								<div ng-switch="field.fieldType.id">				 	
-							 		<div class="formulate-textfield" ng-switch-when="1" field="field"></div>
-						 		
-							 		<div class="formulate-select" ng-switch-when="2" field="field"></div>
-						 		</div>
-					 		 		
-						 		<p class="help-block">
-						 			<div ng-bind-html-unsafe="field.description"></div>
-						 		</p>				 				 
-					 		</div>
-					 	</div>
-					 		
-					</div>
-					<!-- End .viewFieldRow -->
-					
-					<input type="submit" 
-						   value="{{view.submitText}}" 
-						   class="save-button btn btn-primary" 
-						   id="saveButton" 
-						   ng-disabled="theForm.$invalid"
-						   ng-click="save()"/>
-							   
-				</form>
-			</div>
-			<!-- End Form -->
-			
-			<!-- Begin Config -->
-			<div class="col-lg-10" ng-controller="ConfigCtrl">
-				
-				<div class="row" ng-repeat="vf in view.viewFields">
-					
-					<div class="row">
-						<!-- View Field Properties -->				
-						<div class="col-lg-2">
-							<div class="pull-left">
-								<div class="pull-left" style="width:16px;">
-									<i class="icon-arrow-up" ng-hide="vf.sequence==1" ng-click="moveUp($index)"></i>
-									<i class="icon-arrow-down" ng-hide="vf.sequence==editorSvc.view.viewFields.length" ng-click="moveDown($index)"></i>
-								</div>					
-								<h2 class="viewfield-sequence pull-left">
-									{{vf.sequence}}
-								</h2>
-							</div>
-						</div>
-						<div class="col-lg-2">
-							<label>Field Label</label>
-							<input class="input-medium" type="text" ng-model="vf.label" required/>
-						</div>
-						<div class="col-lg-2">
-							<label>Input Type</label>
-							<select class="input-medium" ng-options="v.id as v.name for (k,v) in fieldTypes" ng-model="vf.fieldType.id" required></select>
-						</div>
-						
-						<!-- Toggle Buttons -->
-						<div class="col-lg-6">
-							<div class="pull-left">
-								<label>Field Settings</label>
-								<div class="btn-group" data-toggle="buttons-checkbox">
-									<button href class="btn btn-default {{isActive(vf.required)}}" data-toggle="button" ng-click="vf.required = !vf.required" title="Required" ui-tooltip title="Required?"><i class="glyphicon glyphicon-exclamation-sign"></i></button>
-									<button href class="btn btn-default {{isActive(vf.visibility)}}" data-toggle="button" ng-click="vf.visibility = !vf.visibility" title="Visibility" ui-tooltip title="Field is visible when the view loads"><i class="glyphicon glyphicon-eye-open"></i></button>
-									<button href class="btn btn-default {{isActive(vf.editable)}}" data-toggle="button" ng-click="vf.editable = !vf.editable" title="Editable"><i class="glyphicon glyphicon-pencil" ui-tooltip title="Field may be edited in the <b>INPUT</b> and <b>UPDATE</b> views."></i></button>			
-									<button ng-disabled="vf.fieldType.id == 1 || vf.fieldType.id > 4" href class="btn btn-default {{isActive(vf.custom)}}" data-toggle="button" ng-click="vf.custom = !vf.custom" title="Other Option" ui-tooltip title="Include an <b>Other</b> option."><i class="glyphicon glyphicon-comment"></i></button>
-								</div>
-							</div>
-							
-							<div class="pull-left" style="margin-left:10px;">
-								<label>RegEx</label>					
-								<div class="col-xs-1"><input class="form-control" type="text" ng-model="vf.regEx"/></div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Field Config Buttons -->
-					<div class="row">
-							<ul class="nav">
-								<li ng-click="showOptions = !showOptions" ng-class="isActive(showOptions)"><a href>Options</a></li>
-								<li ng-click="showTriggers = !showTriggers" ng-class="isActive(showTriggers)"><a href>Triggers</a></li>
-								<li ng-click="showVisCond = !showVisCond" ng-class="isActive(showVisCond)"><a href>VisCond</a></li>
-								<li ng-click="showDesc = !showDesc" ng-class="isActive(showDesc)"><a href>Description</a></li>
-								<li ng-click="showScript = !showScript" ng-class="isActive(showScript)"><a href>Scripts</a></li>
-								<li><span class="close" title="Delete Field" ng-click="editorSvc.view.viewFields.splice($index,1)">&times;</span></li>			
-							</ul>
-					</div>
-					<!-- End Field Config Buttons -->
-					
-				</div>	
-				<!-- End Field Config -->
-	
-			</div>
-			<!-- End Config -->
-		</div>
-	</div>
+	<div class="header-container">
+        <header class="wrapper clearfix">
+            <h1 class="title">h1.title</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">nav ul li a</a></li>
+                    <li><a href="#">nav ul li a</a></li>
+                    <li><a href="#">nav ul li a</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
 
+    <div class="main-container">
+        <div class="main wrapper clearfix">
+
+            <article>
+                <header>
+                    <h1>article header h1</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec.</p>
+                </header>
+                <section>
+                    <h2>article section h2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
+                </section>
+                <section>
+                    <h2>article section h2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
+                </section>
+                <footer>
+                    <h3>article footer h3</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
+                </footer>
+            </article>
+
+            <aside>
+                <h3>aside</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
+            </aside>
+
+        </div> <!-- #main -->
+    </div> <!-- #main-container -->
+
+    <div class="footer-container">
+        <footer class="wrapper">
+            <h3>footer</h3>
+        </footer>
+    </div>
+			
 <!-- Scripts -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
-<script type="text/javascript" src="scripts/directives.js"></script>
 <script type="text/javascript" src="scripts/app.js"></script>
 <!-- End Scripts -->
 </body>
