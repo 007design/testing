@@ -23,26 +23,20 @@ app.directive('accordionSection', function(viewStateSvc){
                 scope.section = attrs.section;
             }
         }
-   }; 
-});
-
-app.directive('tabs', function(viewStateSvc){
-    return {
-        restrict: 'C',
-        compile: function(tElem, tAttrs, transclude){
-            tElem.find('.tab').each(function(){
-                $(this).attr('ng-show', 'viewStateSvc.showTab == \''+$(this).attr('data-tab')+'\'');    
-            });
-        }
-    };
+  }; 
 });
 
 app.directive('tab', function(viewStateSvc){
     return {
         restrict: 'C',
-        link: function(scope, elem, attrs, ctrl){
-            scope.viewStateSvc = viewStateSvc;
-            scope.tab = attrs.tab;
+        scope: true,
+        compile: function(tElem, tAttrs, transclude){
+          tElem.find('article').attr('ng-show', 'viewStateSvc.showTab == tab');
+          
+          return function(scope, elem, attrs, ctrl){
+              scope.viewStateSvc = viewStateSvc;
+              scope.tab = attrs.tabName;
+          };
         }
     };
 });
