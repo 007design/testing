@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="app">
+<html lang="en" data-ng-app="app">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -16,16 +16,16 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 </head>
 <!-- AppCtrl is at the top of the DOM -->
-<body ng-controller="viewStateCtrl">
+<body data-ng-controller="viewStateCtrl">
 
 	<div class="header-container">
         <header class="wrapper clearfix">
-            <h1 class="title">h1.title</h1>
+            <h1 class="title">h1.title {{viewStateSvc}}</h1>
             <nav>
                 <ul>
-                    <li><a href="#/section_one">nav ul li a</a></li>
-                    <li><a href="#/section_two">nav ul li a</a></li>
-                    <li><a href="#/section_three">nav ul li a</a></li>
+                    <li><a data-ng-click="showTab('tab_one')">Home</a></li>
+                    <li><a data-ng-click="showSection('section_one')">Section One</a></li>
+                    <li><a data-ng-click="showSection('section_two')">Section Two</a></li>
                 </ul>
             </nav>
         </header>
@@ -35,32 +35,32 @@
         <div class="main wrapper clearfix">
 
             <div class="tabs">
+                <nav>
+                    <ul>
+                        <li><a data-ng-click="showTab('tab_one')">Home</a></li>
+                        <li><a data-ng-click="showTab('tab_two')">Tab Two</a></li>
+                    </ul>
+                </nav>
             
-                <ul>
-                    <li><a href="#/">Home</a></li>
-                    <li><a href="#/tab_one">Section One</a></li>
-                    <li><a href="#/tab_two">Section Two</a></li>
-                </ul>
-            
-                <div class="tab" tab="tab_one">
+                <div class="tab" data-tab="tab_one">
                     Home Tab
                 </div>
-                <div class="tab" tab="tab_two">
+                <div class="tab" data-tab="tab_two">
                     <article class="accordion">
-                        <header route="section_one">
-                            <h1>article header h1</h1>
+                        <header class="accordion-section" data-section="section_one">
+                            <h1 data-ng-click="showSection('section_one')">article header h1</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec.</p>
                         </header>
-                        <section route="section_two">
-                            <h2>article header h2</h2>
+                        <section class="accordion-section" data-section="section_two">
+                            <h2 data-ng-click="showSection('section_two')">article header h2</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
                         </section>
-                        <section route="section_three">
-                            <h2>article section h2</h2>
+                        <section class="accordion-section" data-section="section_three">
+                            <h2 data-ng-click="showSection('section_three')">article section h2</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
                         </section>
-                        <footer route="section_four">
-                            <h3>article footer h3</h3>
+                        <footer class="accordion-section" data-section="section_four">
+                            <h3 data-ng-click="showSection('section_four')">article footer h3</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
                         </footer>
                     </article>

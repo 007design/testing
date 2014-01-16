@@ -157,9 +157,14 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
+.tabs nav {
+    float: left;
+    width: 57%;
+}
 
-
-
+.tab {
+    clear:left;
+}
 
 
 
