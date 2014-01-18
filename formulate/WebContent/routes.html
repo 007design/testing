@@ -37,18 +37,19 @@
             <div class="tabs">
                 <nav>
                     <ul>
-                        <li><a ui-sref="home">Home</a></li>
-                        <li><a ui-sref="tab_one">Tab One</a></li>
-                        <li><a ui-sref="tab_two">Tab Two</a></li>
+                        <li><a ui-sref="home" ng-class="{ 'active-tab': isHome() }">Home</a></li>
+                        <li><a ui-sref="tab_one" ng-class="{ 'active-tab': isTabOne() }">Tab One</a></li>
+                        <li><a ui-sref="tab_two" ng-class="{ 'active-tab': isTabTwo() }">Tab Two</a></li>
                     </ul>
                 </nav>
             
-            <div class="tabs" ui-view></div>
-
-            <aside>
-                <h3>aside</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
-            </aside>
+                <div class="content" ui-view></div>
+    
+                <aside>
+                    <h3>aside</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
+                </aside>
+            </div>
 
         </div> <!-- #main -->
     </div> <!-- #main-container -->

@@ -16,7 +16,7 @@ angular.module('app', ['ui.router'])
                 url: '/tab_two',
                 templateUrl: 'tab_two.html'
             },
-            section_two: {
+            section_one: {
                 name: 'tab_two.section_one',
                 url: '/section_one',
                 templateUrl: 'tab_two.html',
@@ -27,7 +27,7 @@ angular.module('app', ['ui.router'])
                     }
                 }
             },
-            section_one: {
+            section_two: {
                 name: 'tab_two.section_two',
                 url: '/section_two',
                 templateUrl: 'tab_two.html',
@@ -78,4 +78,8 @@ angular.module('app', ['ui.router'])
     $scope.showSection = function(section){
         $state.transitionTo(section);
     };
+    
+    $scope.isHome = function(){ return $state.includes('home'); };
+    $scope.isTabOne = function(){ return $state.includes('tab_one'); };
+    $scope.isTabTwo = function(){ return $state.includes('tab_two'); };
 });
