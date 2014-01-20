@@ -3,40 +3,23 @@ angular.module('app', ['ui.router', 'ngRoute'])
         var states = {
             home: {
                 name: 'home',
-                url: '/',
-                templateUrl: 'home.html'
+                url: '/home'
             },
             tab_one: {
                 name: 'tab_one',
                 url: '/tab_one'
-                ,templateUrl: 'tab_one.html'
             },
             tab_two: {
                 name: 'tab_two',
-                url: '/tab_two',
-                templateUrl: 'tab_two.html'
+                url: '/tab_two'
             },
             section_one: {
                 name: 'tab_two.section_one',
-                url: '/section_one',
-                templateUrl: 'tab_two.html',
-                resolve: {
-                    viewStateSvc: 'viewStateSvc',
-                    state: function(viewStateSvc){
-                        viewStateSvc.showSection = 'section_one';
-                    }
-                }
+                url: '/tab_two/section_one'
             },
             section_two: {
                 name: 'tab_two.section_two',
-                url: '/section_two',
-                templateUrl: 'tab_two.html',
-                resolve: {
-                    viewStateSvc: 'viewStateSvc',
-                    state: function(viewStateSvc){
-                        viewStateSvc.showSection = 'section_two';
-                    }
-                }
+                url: '/tab_two/section_two'
             }
         };
 
@@ -65,11 +48,15 @@ angular.module('app', ['ui.router', 'ngRoute'])
         }
   }; 
 })
-.controller('viewStateCtrl', function ($scope, $state, $stateParams) {
+.controller('viewStateCtrl', function ($scope, $state, viewStateSvc) {
+    $scope.viewStateSvc = viewStateSvc;
 
-    // $scope.$on('$stateChangeSuccess', function(){
-    //     console.log($stateParams);
-    // });
+    $scope.$on('$stateChangeSuccess', function(){
+        var bits = $state.current.url.split('/');
+        console.log($state.current.url);
+        if (bits[1]) $scope.viewStateSvc.showTab = bits[1];
+        if (bits[2]) $scope.viewStateSvc.showSection = bits[2];
+    });
 
     $scope.showTab = function (page) {
         $state.transitionTo(page);
