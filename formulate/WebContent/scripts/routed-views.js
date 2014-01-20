@@ -1,5 +1,5 @@
-angular.module('app', ['ui.router', 'ngRoute'])
-.config(function ($stateProvider) {
+angular.module('app', ['ui.router'])
+.config(function ($stateProvider, $urlRouterProvider) {
     var states = [
         {
             name: 'home',
@@ -28,6 +28,8 @@ angular.module('app', ['ui.router', 'ngRoute'])
     angular.forEach(states, function(state, name){
         $stateProvider.state(state);
     });
+    
+    $urlRouterProvider.otherwise('/home');
 })
 .service('viewStateSvc', function(){
     var scope = this;
