@@ -23,9 +23,9 @@
             <h1 class="title">h1.title</h1>
             <nav>
                 <ul>
-                    <li><a ui-sref="home">Home</a></li>
-                    <li><a ui-sref="tab_two.section_one">Section One</a></li>
-                    <li><a ui-sref="tab_two.section_two">Section Two</a></li>
+                    <li><a data-ui-sref="home">Home</a></li>
+                    <li><a data-ui-sref="tab_two.section_one">Section One</a></li>
+                    <li><a data-ui-sref="tab_two.section_two">Section Two</a></li>
                 </ul>
             </nav>
         </header>
@@ -37,36 +37,36 @@
             <div class="tabs">
                 <nav>
                     <ul>
-                        <li><a ui-sref="home" ng-class="{ 'active-tab': isHome() }">Home</a></li>
-                        <li><a ui-sref="tab_one" ng-class="{ 'active-tab': isTabOne() }">Tab One</a></li>
-                        <li><a ui-sref="tab_two" ng-class="{ 'active-tab': isTabTwo() }">Tab Two</a></li>
+                        <li><a data-ui-sref="home" data-ng-class="{ 'active-tab': isHome() }">Home</a></li>
+                        <li><a data-ui-sref="tab_one" data-ng-class="{ 'active-tab': isTabOne() }">Tab One</a></li>
+                        <li><a data-ui-sref="tab_two" data-ng-class="{ 'active-tab': isTabTwo() }">Tab Two</a></li>
                     </ul>
                 </nav>
                 
                 <div class="tab-content">
-                    <div class="tab" ng-show="isHome()">
+                    <div class="tab" data-ng-show="isHome()">
                         Home Tab
                     </div>
-                    <div class="tab" ng-show="isTabOne()">
+                    <div class="tab" data-ng-show="isTabOne()">
                         Tab One Baby
                     </div>
-                    <div class="tab" ng-show="isTabTwo()">
+                    <div class="tab" data-ng-show="isTabTwo()">
                         <article class="accordion">
                             <header class="accordion-section" data-section="section_one">
                                 <h1 data-ui-sref="tab_two.section_one">article header h1</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec.</p>
+                                <p data-ng-show="isSectionOne()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec.</p>
                             </header>
                             <section class="accordion-section" data-section="section_two">
                                 <h2 data-ui-sref="tab_two.section_two">article header h2</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
+                                <p data-ng-show="isSectionTwo()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
                             </section>
                             <section class="accordion-section" data-section="section_three">
                                 <h2 data-ui-sref="tab_two.section_three">article section h2</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
+                                <p data-ng-show="isSectionThree()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
                             </section>
                             <footer class="accordion-section" data-section="section_four">
                                 <h3 data-ui-sref="tab_two.section_four">article footer h3</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
+                                <p data-ng-show="isSectionFour()">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
                             </footer>
                         </article>
                     </div>

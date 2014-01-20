@@ -45,7 +45,7 @@ angular.module('app', ['ui.router', 'ngRoute'])
         });
     })
 .run(['$state', function ($state) {
-   $state.transitionTo('home');
+   //$state.transitionTo('home');
 }])
 .service('viewStateSvc', function(){
     var scope = this;
